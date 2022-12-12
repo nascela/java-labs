@@ -3,6 +3,8 @@ package lab2.service;
 import lab2.model.ActionStatus;
 import lab2.model.CourseInstance;
 
+import java.util.ArrayList;
+
 /**
  * Интерфейс сервиса для студентов
  */
@@ -16,7 +18,7 @@ public interface StudentService {
      * - в курсе есть свободные места.
      *
      * @param studentId идентификатор студента
-     * @param courseId идентификатор курса, соответствующий CourseInstance.id
+     * @param courseId  идентификатор курса, соответствующий CourseInstance.id
      * @return результат выполнения регистрации
      */
     ActionStatus subscribe(long studentId, long courseId);
@@ -26,7 +28,7 @@ public interface StudentService {
      * курс еще не начался.
      *
      * @param studentId идентификатор студента
-     * @param courseId идентификатор курса, соответствующий CourseInstance.id
+     * @param courseId  идентификатор курса, соответствующий CourseInstance.id
      * @return результат выполнения отмены регистрации
      */
     ActionStatus unsubscribe(long studentId, long courseId);
@@ -35,9 +37,6 @@ public interface StudentService {
      * @param studentId идентификатор студента
      * @return список всех курсов, на которые записан студент
      */
-    default CourseInstance[] findAllSubscriptionsByStudentId(long studentId) {
-
-        return new CourseInstance[0];
-    }
+    ArrayList<CourseInstance> findAllSubscriptionsByStudentId(long studentId);
 
 }

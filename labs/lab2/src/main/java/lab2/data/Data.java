@@ -3,49 +3,58 @@ import lab2.model.*;
 import lab2.reader.CourseDataReader;
 import lab2.reader.InstructorDataReader;
 import lab2.reader.StudentDataReader;
+import lab2.model.StudentCategory;
 
 
 
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.stream.IntStream;
 
 public class Data  {
 
 
-    private Student bachelorStudents[];
 
-    private Student masterStudents[];
+    private ArrayList<Student> bachelorStudents = new ArrayList<Student>();
+//    private Student bachelorStudents[];
 
-
-
-    private Student allStudents[];
-
+    private ArrayList<Student> masterStudents = new ArrayList<Student>();
+    //private Student masterStudents[];
 
 
-    private CourseInfo courseInfos[];
+    private ArrayList<Student> allStudents = new ArrayList<Student>();
+    //private Student allStudents[];
 
-    private CourseInstance courseInstances[];
 
-    private Instructor instructors[];
+    private ArrayList<CourseInfo> courseInfos = new ArrayList<CourseInfo>();
+    //private CourseInfo courseInfos[];
+
+    private ArrayList<CourseInstance> courseInstances = new ArrayList<CourseInstance>();
+    //private CourseInstance courseInstances[];
+
+    private ArrayList<Instructor> instructors = new ArrayList<Instructor>();
+    //private Instructor instructors[];
 
 
     public Data() throws IOException {
-        int x = 0;
+
 
         StudentDataReader allStudents = new StudentDataReader();
         this.bachelorStudents = allStudents.readBachelorStudentData();
         this.masterStudents = allStudents.readMasterStudentData();
-        this.allStudents = new Student[bachelorStudents.length + masterStudents.length];
-        for(int i = 0; i < bachelorStudents.length; i++){
-            this.allStudents[i] = bachelorStudents[i];
-            this.allStudents[i].setStudentCategory(StudentCategory.valueOf("BACHELOR"));
-            x++;
-        }
-        for(int i = 0; i < masterStudents.length; i++){
-            this.allStudents[i+x] = masterStudents[i];
-            this.allStudents[i+x].setStudentCategory(StudentCategory.valueOf("MASTER"));
-        }
+        bachelorStudents.stream()
+                .forEach(student -> student.setStudentCategory(StudentCategory.valueOf("BACHELOR")));
+
+        masterStudents.stream()
+                .forEach(student -> student.setStudentCategory(StudentCategory.valueOf("MASTER")));
+
+        this.allStudents = this.bachelorStudents;
+        this.allStudents.addAll(this.masterStudents);
+
+
+
 
 
         CourseDataReader allCourses = new CourseDataReader();
@@ -56,54 +65,37 @@ public class Data  {
 
     }
 
-
-    public void setAllStudents(Student[] allStudents) {
-        this.allStudents = allStudents;
-    }
-
-    public Student[] getAllStudents() {
+    public ArrayList<Student> getAllStudents() {
         return allStudents;
     }
 
-
-    public Student[] getBachelorStudents() {
-        return bachelorStudents;
+    public void setAllStudents(ArrayList<Student> allStudents) {
+        this.allStudents = allStudents;
     }
 
-    public void setBachelorStudents(Student[] bachelorStudents) {
-        this.bachelorStudents = bachelorStudents;
-    }
-
-    public Student[] getMasterStudents() {
-        return masterStudents;
-    }
-
-    public void setMasterStudents(Student[] masterStudents) {
-        this.masterStudents = masterStudents;
-    }
-
-    public CourseInfo[] getCourseInfos() {
+    public ArrayList<CourseInfo> getCourseInfos() {
         return courseInfos;
     }
 
-    public void setCourseInfos(CourseInfo[] courseInfos) {
+    public void setCourseInfos(ArrayList<CourseInfo> courseInfos) {
         this.courseInfos = courseInfos;
     }
 
-    public CourseInstance[] getCourseInstances() {
+    public ArrayList<CourseInstance> getCourseInstances() {
         return courseInstances;
     }
 
-    public void setCourseInstances(CourseInstance[] courseInstances) {
+    public void setCourseInstances(ArrayList<CourseInstance> courseInstances) {
         this.courseInstances = courseInstances;
     }
 
-    public Instructor[] getInstructors() {
+    public ArrayList<Instructor> getInstructors() {
         return instructors;
     }
 
-    public void setInstructors(Instructor[] instructors) {
+    public void setInstructors(ArrayList<Instructor> instructors) {
         this.instructors = instructors;
     }
+
 
 }

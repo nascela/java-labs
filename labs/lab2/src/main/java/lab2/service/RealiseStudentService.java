@@ -5,6 +5,7 @@ import lab2.data.Data;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.stream.IntStream;
 
 public class RealiseStudentService implements StudentService{
 
@@ -28,45 +29,55 @@ public class RealiseStudentService implements StudentService{
 
     @Override
     public ActionStatus subscribe(long studentId, long courseId) {
-        int currentIdOfStudent = -1;
-        int currentIdOfCurseInstance = -1;
-        int currentIdOfCurseInfo = -1;
-        int x = 0;
-
-        long[] necessaryCourses;
-        long[] completedCourses;
 
         ///находим нужного студента по id
-        for (int i = 0; i < data.getAllStudents().length; i++){
-            if (data.getAllStudents()[i].getId() == studentId ){
-                currentIdOfStudent = i;
-            }
-        }
-        // нходим нужный курс в инстас
-        for(int j = 0; j < data.getCourseInstances().length; j++ ){
-            if(data.getCourseInstances()[j].getId() == courseId){
-                currentIdOfCurseInstance = j;
-            }
-        }
-        // находим нужный курс в инфо
-        for(int j = 0; j < data.getCourseInfos().length; j++ ){
-            if(data.getCourseInfos()[j].getId() == data.getCourseInstances()[currentIdOfCurseInstance].getCourseId()){
-                currentIdOfCurseInfo = j;
-                x = data.getCourseInfos()[j].getStudentCategories().length;
-            }
-        }
+        int currentNumOfStudent = IntStream.range(0, data.getAllStudents().size())
+                .filter(i -> data.getAllStudents().get(i).getId() == studentId)
+                .findFirst().getAsInt();
 
-        necessaryCourses = data.getCourseInfos()[currentIdOfCurseInfo].getPrerequisites();
-        completedCourses = data.getAllStudents()[currentIdOfStudent].getCompletedCourses();
+        // нходим нужный курс в инстас
+        int currentNumOfCurseInstance = IntStream.range(0, data.getCourseInstances().size())
+                .filter(i -> data.getCourseInstances().get(i).getId() == courseId)
+                .findFirst().getAsInt();
+
+        // находим нужный курс в инфо
+        int currentNumOfCurseInfo = IntStream.range(0,data.getCourseInfos().size())
+                .filter(i-> data.getCourseInfos().get(i).getId() == data.getCourseInstances().get(currentNumOfCurseInstance).getCourseId())
+                .findFirst().getAsInt();
+
+        int x = data.getCourseInfos().get(currentNumOfCurseInfo).getStudentCategories().size();
+
+        ArrayList<Long> necessaryCourses = data.getCourseInfos().get(currentNumOfCurseInfo).getPrerequisites();
+        ArrayList<Long> completedCourses = data.getAllStudents().get(currentNumOfStudent).getCompletedCourses();
+
+
+
+
+
+
+
+
+
+
+
         // проверка на прохождение нужных курсов
         if(necessaryCourses != null) {
 
-            for (int i = 0; i < necessaryCourses.length; i++){
-                for(int j = 0; j < completedCourses.length; j++){
-                    if (necessaryCourses[i] == completedCourses[j]){
+//            int I = IntStream.range(0, necessaryCourses.size())
+//                    .forEach(i -> {
+//                        int J = IntStream.range(0, completedCourses.size())
+//                                .forEach(j -> {
+//                                    if(necessaryCourses.get(i) == completedCourses.get(j))
+//
+//                                });
+//                    });
+
+            for (int i = 0; i < necessaryCourses.size(); i++){
+                for(int j = 0; j < completedCourses.size(); j++){
+                    if (necessaryCourses.get(i) == completedCourses.get(j)){
                         break;
                     }
-                    else if(j == completedCourses.length - 1){
+                    else if(j == completedCourses.size() - 1){
                         System.out.println("Студент не записан на курс - т.к. не прошел необходимые курсы");
                         return ActionStatus.NOK ;
                     }
@@ -75,13 +86,13 @@ public class RealiseStudentService implements StudentService{
         }
 
         // проверк на начало курса
-        if(data.getCourseInstances()[currentIdOfCurseInstance].getStartDate().isAfter(LocalDate.now())){
+        if(data.getCourseInstances().get(currentNumOfCurseInstance).getStartDate().isAfter(LocalDate.now())){
             // проверка судента на бакалавра\магистра
-            if(data.getAllStudents()[currentIdOfStudent].getStudentCategory() == data.getCourseInfos()[currentIdOfCurseInfo].getStudentCategories()[0] || data.getAllStudents()[currentIdOfStudent].getStudentCategory() == data.getCourseInfos()[currentIdOfCurseInfo].getStudentCategories()[x - 1] ){
+            if(data.getAllStudents().get(currentNumOfStudent).getStudentCategory() == data.getCourseInfos().get(currentNumOfCurseInfo).getStudentCategories().get(0) || data.getAllStudents().get(currentNumOfStudent).getStudentCategory() == data.getCourseInfos().get(currentNumOfCurseInfo).getStudentCategories().get(x-1) ){
                 // проверка курса на заполненность
-                if(data.getCourseInstances()[currentIdOfCurseInstance].getIdOfStudents().size() < data.getCourseInstances()[currentIdOfCurseInstance].getCapacity()){
-                    data.getAllStudents()[currentIdOfStudent].getCurrentCourses().add(Math.toIntExact(courseId));
-                    data.getCourseInstances()[currentIdOfCurseInstance].getIdOfStudents().add((int) studentId);
+                if(data.getCourseInstances().get(currentNumOfCurseInstance).getIdOfStudents().size() < data.getCourseInstances().get(currentNumOfCurseInstance).getCapacity()){
+                    data.getAllStudents().get(currentNumOfStudent).getCurrentCourses().add(Math.toIntExact(courseId));
+                    data.getCourseInstances().get(currentNumOfCurseInstance).getIdOfStudents().add((int) studentId);
                     System.out.println("Студент записан на курс");
                     return ActionStatus.OK;
                     //throw new Exception("");
@@ -117,45 +128,55 @@ public class RealiseStudentService implements StudentService{
     @Override
     public ActionStatus unsubscribe(long studentId, long courseId) {
 
-        int currentIdOfStudent = -1;
-        int currentIdOfCurseInstance = -1;
-        int currentIdOfCurseInfo = -1;
+
 
         ///находим нужного студента по id
-        for (int i = 0; i < data.getAllStudents().length; i++){
-            if (data.getAllStudents()[i].getId() == studentId ){
-                currentIdOfStudent = i;
-            }
-        }
-        // нходим нужный курс в истанс
-        for(int j = 0; j < data.getCourseInstances().length; j++ ){
-            if(data.getCourseInstances()[j].getId() == courseId){
-                currentIdOfCurseInstance = j;
-            }
-        }
-        // находим нужный курс в инфо
-        for(int j = 0; j < data.getCourseInfos().length; j++ ){
-            if(data.getCourseInfos()[j].getId() == data.getCourseInstances()[currentIdOfCurseInstance].getCourseId()){
-                currentIdOfCurseInfo = j;
-            }
-        }
+        ///находим нужного студента по id
+        int currentNumOfStudent = IntStream.range(0, data.getAllStudents().size())
+                .filter(i -> data.getAllStudents().get(i).getId() == studentId)
+                .findFirst().getAsInt();
 
-        if(!data.getCourseInstances()[currentIdOfCurseInstance].getStartDate().isAfter(LocalDate.now())){
+        // нходим нужный курс в инстас
+        int currentNumOfCurseInstance = IntStream.range(0, data.getCourseInstances().size())
+                .filter(i -> data.getCourseInstances().get(i).getId() == courseId)
+                .findFirst().getAsInt();
+
+        // находим нужный курс в инфо
+        int currentNumOfCurseInfo = IntStream.range(0,data.getCourseInfos().size())
+                .filter(i-> data.getCourseInfos().get(i).getId() == data.getCourseInstances().get(currentNumOfCurseInstance).getCourseId())
+                .findFirst().getAsInt();
+
+        if(!data.getCourseInstances().get(currentNumOfCurseInstance).getStartDate().isAfter(LocalDate.now())){
             System.out.println("Студент не отписан от курса - т.к. курс уже начался)");
             return ActionStatus.NOK;
         }
 
-        for(int i = 0; i < data.getAllStudents()[currentIdOfStudent].getCurrentCourses().size(); i++){
-            if (data.getAllStudents()[currentIdOfStudent].getCurrentCourses().get(i) == courseId){
-                data.getAllStudents()[currentIdOfStudent].getCurrentCourses().remove(i);
-            }
-        }
 
-        for(int i = 0; i < data.getCourseInstances()[currentIdOfCurseInstance].getIdOfStudents().size(); i++){
-            if (data.getCourseInstances()[currentIdOfCurseInstance].getIdOfStudents().get(i) == studentId){
-                data.getCourseInstances()[currentIdOfCurseInstance].getIdOfStudents().remove(i);
-            }
-        }
+
+//        data.getAllStudents().get(currentNumOfStudent).getCurrentCourses().stream()
+//                .forEach(cCourse-> {
+//                    if(cCourse == courseId)
+//                        data.getAllStudents().get(currentNumOfStudent).getCurrentCourses().remove(cCourse);
+//                });
+//
+//        data.getCourseInstances().get(currentNumOfCurseInstance).getIdOfStudents().stream()
+//                .forEach(cStudent -> {
+//                    if(cStudent == studentId)
+//                        data.getCourseInstances().get(currentNumOfCurseInstance).getIdOfStudents().remove(cStudent);
+//                });
+
+        IntStream.range(0, data.getAllStudents().get(currentNumOfStudent).getCurrentCourses().size())
+                        .forEach(i -> {
+                            if(data.getAllStudents().get(currentNumOfStudent).getCurrentCourses().get(i) == courseId)
+                                data.getAllStudents().get(currentNumOfStudent).getCurrentCourses().remove(i);
+                        });
+        IntStream.range(0, data.getCourseInstances().get(currentNumOfCurseInstance).getIdOfStudents().size())
+                        .forEach(i -> {
+                            if(data.getCourseInstances().get(currentNumOfCurseInstance).getIdOfStudents().get(i) == studentId)
+                                data.getCourseInstances().get(currentNumOfCurseInstance).getIdOfStudents().remove(i);
+                        });
+
+
 
 
         System.out.println("Студент успешно отписан от курса");
@@ -170,32 +191,25 @@ public class RealiseStudentService implements StudentService{
      */
 
     @Override
-    public CourseInstance[] findAllSubscriptionsByStudentId(long studentId) {
+    public ArrayList<CourseInstance> findAllSubscriptionsByStudentId(long studentId) {
 
-        int currentIdOfStudent = -1;
+
         ArrayList<Integer> currentIdOfStudentCourses;
-        CourseInstance currentCourses[];
-        int x = 0;
+        ArrayList<CourseInstance> currentCourses = new ArrayList<CourseInstance>();
 
-        ///находим нужного студента по id
-        for (int i = 0; i < data.getAllStudents().length; i++){
-            if (data.getAllStudents()[i].getId() == studentId ){
-                currentIdOfStudent = i;
-                break;
-            }
-        }
+        currentIdOfStudentCourses = data.getAllStudents().stream()
+                .filter(student -> student.getId() == studentId)
+                .findFirst().get().getCurrentCourses();
 
-        currentIdOfStudentCourses = data.getAllStudents()[currentIdOfStudent].getCurrentCourses();
-        currentCourses = new CourseInstance[currentIdOfStudentCourses.size()];
 
-        for(int i = 0; i < data.getCourseInstances().length; i++){
-            for(int j = 0; j < currentIdOfStudentCourses.size(); j++){
-                if(data.getCourseInstances()[i].getId() == currentIdOfStudentCourses.get(j)){
-                    currentCourses[x] = data.getCourseInstances()[i];
-                    x++;
-                }
-            }
-        }
+        currentIdOfStudentCourses.stream()
+                .forEach(id -> {
+                    data.getCourseInstances().stream()
+                            .filter(courseInstance -> courseInstance.getId() == id)
+                            .forEach(courseInstance -> currentCourses.add(courseInstance));
+
+                });
+
 
         System.out.println(currentIdOfStudentCourses);
         return currentCourses;

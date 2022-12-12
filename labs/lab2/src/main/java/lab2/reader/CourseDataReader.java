@@ -4,9 +4,12 @@ import java.time.LocalDate;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lab2.model.CourseInstance;
 import lab2.model.CourseInfo;
+import lab2.model.Student;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class CourseDataReader {
 
@@ -18,12 +21,19 @@ public class CourseDataReader {
 
 
 
-    public CourseInfo[] readCourseInfoData() throws IOException {
-        return objectMapper.readValue(new File("labs/lab2/src/main/resources/courseInfos.json"), CourseInfo[].class);
+    public ArrayList <CourseInfo> readCourseInfoData() throws IOException {
+        CourseInfo[] array = objectMapper.readValue(new File("labs/lab2/src/main/resources/courseInfos.json"), CourseInfo[].class);
+        ArrayList<CourseInfo> res = new ArrayList<CourseInfo>();
+        Collections.addAll(res, array);
+        return res;
     }
 
 
-    public CourseInstance[] readCourseInstanceData() throws IOException {
-        return objectMapper.readValue(new File("labs/lab2/src/main/resources/courseInstances.json"), CourseInstance[].class);
+    public ArrayList<CourseInstance> readCourseInstanceData() throws IOException {
+        CourseInstance [] array = objectMapper.readValue(new File("labs/lab2/src/main/resources/courseInstances.json"), CourseInstance[].class);
+        ArrayList<CourseInstance> res = new ArrayList<CourseInstance>();
+        Collections.addAll(res, array);
+
+        return res;
     }
 }

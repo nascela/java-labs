@@ -1,23 +1,23 @@
 package lab2.model;
 
+import java.util.ArrayList;
+
 /**
  * Класс для информации о преподавателе
  */
 public class Instructor extends Person {
 
+
+
     /**
      * Идентификаторы курсов, которые может вести преподаватель
      */
-    int[] canTeach;
 
+    private ArrayList<Long> canTeach = new ArrayList<Long>();
 
-    public int[] getCanTeach() {
-        return canTeach;
-    }
+    public ArrayList<Long> getCanTeach() { return canTeach;}
 
-    public void setCanTeach(int[] canTeach) {
-        this.canTeach = canTeach;
-    }
+    public void setCanTeach(ArrayList<Long> canTeach) {this.canTeach = canTeach;}
 
     
 }

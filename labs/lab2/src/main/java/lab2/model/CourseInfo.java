@@ -1,5 +1,7 @@
 package lab2.model;
 
+import java.util.ArrayList;
+
 /**
  * Класс для базовой информации о курсе
  */
@@ -21,16 +23,26 @@ public class CourseInfo {
      */
     private String description;
 
+    public ArrayList<Long> getPrerequisites() {
+        return prerequisites;
+    }
+
+    public void setPrerequisites(ArrayList<Long> prerequisites) {
+        this.prerequisites = prerequisites;
+    }
+
     /**
      * Список идентификаторов курсов, которые нужно обязательно пройти до начала данного курса
      */
-    private long[] prerequisites;
+    //private long[] prerequisites;
+    private ArrayList<Long> prerequisites = new ArrayList<Long>();
+
 
     /**
      * список категорий студентов, которые могут посещать курс
      */
-    private StudentCategory[] studentCategories;
-
+    //private StudentCategory[] studentCategories;
+    private ArrayList<StudentCategory> studentCategories = new ArrayList<StudentCategory>();
 
     void setName(String name){
         this.name = name;
@@ -55,21 +67,11 @@ public class CourseInfo {
         this.description = description;
     }
 
-    public long[] getPrerequisites() {
-        return prerequisites;
-    }
 
-    public void setPrerequisites(long[] prerequisites) {
-        this.prerequisites = prerequisites;
-    }
 
-    public StudentCategory[] getStudentCategories() {
-        return studentCategories;
-    }
+    public ArrayList<StudentCategory> getStudentCategories() {return studentCategories;}
 
-    public void setStudentCategories(StudentCategory[] studentCategories) {
-        this.studentCategories = studentCategories;
-    }
+    public void setStudentCategories(ArrayList<StudentCategory> studentCategories) {this.studentCategories = studentCategories;}
 
 
 

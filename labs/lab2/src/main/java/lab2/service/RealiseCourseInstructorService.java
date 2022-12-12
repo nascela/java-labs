@@ -1,11 +1,11 @@
 package lab2.service;
 
 import lab2.data.Data;
-import lab2.model.CourseInstance;
 import lab2.model.Instructor;
 import lab2.model.Student;
 
 import java.util.ArrayList;
+
 
 public class RealiseCourseInstructorService implements CourseInstructorService {
 
@@ -22,31 +22,30 @@ public class RealiseCourseInstructorService implements CourseInstructorService {
      * @return список студентов, зарегистрированных на данный курс
      */
     @Override
-    public Student[] findStudentsByCourseId(long courseId) {
+    public ArrayList<Student> findStudentsByCourseId(long courseId) {
 
-        int currentIdOfCurseInstance = -1;
-        ArrayList<Integer> currentIdOfStudentsOnCourses;
-        Student currentStudents[];
-        int x = 0;
+        ArrayList<Integer> currentIdOfStudentsOnCourses = new ArrayList<Integer>();
+        ArrayList<Student> currentStudents = new ArrayList<Student>();
 
-        // нходим нужный курс в инстас
-        for(int j = 0; j < data.getCourseInstances().length; j++ ){
-            if(data.getCourseInstances()[j].getId() == courseId){
-                currentIdOfCurseInstance = j;
-            }
-        }
 
-        currentIdOfStudentsOnCourses =  data.getCourseInstances()[currentIdOfCurseInstance].getIdOfStudents();
-        currentStudents = new Student[currentIdOfStudentsOnCourses.size()];
 
-        for(int i = 0; i < data.getAllStudents().length; i++){
-            for (int j = 0; j < currentIdOfStudentsOnCourses.size(); j++){
-                if(data.getAllStudents()[i].getId() == currentIdOfStudentsOnCourses.get(j)){
-                    currentStudents[x] = data.getAllStudents()[i];
-                    x++;
-                }
-            }
-        }
+        // нходим нужный курс в инстас, присваиваем список id студентов на данном курсе
+        data.getCourseInstances().stream()
+                .forEach(courseInstance -> {
+                    if(courseInstance.getId() == courseId)
+                        currentIdOfStudentsOnCourses.addAll(courseInstance.getIdOfStudents());
+                });
+
+
+        data.getAllStudents().stream()
+                .forEach(student -> {
+                    currentIdOfStudentsOnCourses.stream()
+                            .forEach(id -> {
+                                if(student.getId() == id)
+                                    currentStudents.add(student);
+                            });
+                });
+
 
         System.out.println(currentIdOfStudentsOnCourses);
         return currentStudents;
@@ -57,49 +56,34 @@ public class RealiseCourseInstructorService implements CourseInstructorService {
      * @return список студентов, посещающих один из курсов данного преподавателя
      */
     @Override
-    public Student[] findStudentsByInstructorId(long instructorId) {
+    public ArrayList<Student> findStudentsByInstructorId(long instructorId) {
 
         ArrayList<Integer> currentIdOfStudentsByInstructor = new ArrayList<Integer>();
-        Student currentStudents[];
-        int x = 0;
-
-        int currentIdOfInstructor = -1;
-        for(int i = 0; i < data.getInstructors().length; i++){
-            if(data.getInstructors()[i].getId() == instructorId){
-                currentIdOfInstructor = i;
-                break;
-            }
-        }
-
-        for(int i = 0; i < data.getCourseInstances().length; i++){
-            if(data.getCourseInstances()[i].getInstructorId() == instructorId){
-                currentIdOfStudentsByInstructor.addAll(data.getCourseInstances()[i].getIdOfStudents());
-
-            }
-        }
-
-        for(int i = 0; i < currentIdOfStudentsByInstructor.size(); i++){
-            for(int j = i + 1; j < currentIdOfStudentsByInstructor.size(); j++){
-                if(currentIdOfStudentsByInstructor.get(i) == currentIdOfStudentsByInstructor.get(j)){
-                    currentIdOfStudentsByInstructor.remove(j);
-                }
-            }
-        }
+        ArrayList<Student> currentStudents  = new ArrayList<Student>();
 
 
 
-        currentStudents = new Student[currentIdOfStudentsByInstructor.size()];
+        data.getCourseInstances().stream()
+                .filter(courseInstance -> courseInstance.getInstructorId() == instructorId)
+                .forEach(courseInstance -> currentIdOfStudentsByInstructor.addAll(courseInstance.getIdOfStudents()));
 
-        for(int i = 0; i < data.getAllStudents().length; i++){
-            for (int j = 0; j < currentIdOfStudentsByInstructor.size(); j++){
-                if(data.getAllStudents()[i].getId() == currentIdOfStudentsByInstructor.get(j)){
-                    currentStudents[x] = data.getAllStudents()[i];
-                    x++;
-                }
-            }
-        }
 
-        System.out.println(currentIdOfStudentsByInstructor);
+
+
+
+        currentIdOfStudentsByInstructor.stream()
+                .distinct()
+                .forEach(id -> {
+                    data.getAllStudents().stream()
+                            .filter(student -> student.getId() == id)
+                            .forEach(student -> currentStudents.add(student));
+                });
+
+
+
+
+
+        currentIdOfStudentsByInstructor.stream().distinct().forEach(id -> System.out.println(id));
         return currentStudents;
 
     }
@@ -112,56 +96,41 @@ public class RealiseCourseInstructorService implements CourseInstructorService {
      * @return список преподавателей, которые могут прочитать данный курс вместо данного преподавателя
      */
     @Override
-    public Instructor[] findReplacement(long instructorId, long courseId) {
-
-        int currentIdOfInstructor = -1;
-        long curseInfoId = -1;
-        int x = 0;
+    public ArrayList<Instructor> findReplacement(long instructorId, long courseId) {
 
         ArrayList<Long> idOfReplacementsInstructors = new ArrayList<Long>();
-        Instructor replacementInstructors[];
+        ArrayList<Instructor> replacementInstructors = new ArrayList<Instructor>();
 
-        // находим преподавателя
-        for(int i = 0; i < data.getInstructors().length; i++){
-            if(data.getInstructors()[i].getId() == instructorId){
-                currentIdOfInstructor = i;
-                break;
-            }
-        }
 
-        // нходим нужный курс в истанс
-        for(int j = 0; j < data.getCourseInstances().length; j++ ){
-            if(data.getCourseInstances()[j].getId() == courseId){
+        Long courseInfoId = data.getCourseInstances().stream()
+                .filter(courseInstance -> courseInstance.getId() == courseId)
+                .findFirst().get().getCourseId();
 
-                curseInfoId = data.getCourseInstances()[j].getCourseId();
-                break;
-            }
-        }
+
+        data.getInstructors().stream()
+                .forEach(instructor -> {
+                    instructor.getCanTeach().stream()
+                            .filter(id -> id == courseInfoId && instructor.getId() != instructorId)
+                            .forEach(id -> idOfReplacementsInstructors.add(id));
+
+                });
 
 
 
-        for(int i = 0; i < data.getInstructors().length; i ++){
-            for(int j = 0; j < data.getInstructors()[i].getCanTeach().length; j++){
-                if(data.getInstructors()[i].getCanTeach()[j] == curseInfoId && i != currentIdOfInstructor){
-                    idOfReplacementsInstructors.add(data.getInstructors()[i].getId());
-                }
-            }
-        }
-
-        replacementInstructors = new Instructor[idOfReplacementsInstructors.size()];
-        for(int i = 0; i < data.getInstructors().length; i ++){
-            for(int j = 0; j < idOfReplacementsInstructors.size(); j++){
-                if(data.getInstructors()[i].getId() == idOfReplacementsInstructors.get(j)){
-                    replacementInstructors[x] = data.getInstructors()[i];
-                    x++;
-                }
-
-            }
-        }
+        idOfReplacementsInstructors.stream()
+                .distinct()
+                .forEach(id -> {
+                    data.getInstructors().stream()
+                            .filter(instructor -> instructor.getId() == id)
+                            .forEach(instructor -> replacementInstructors.add(instructor));
+                });
 
 
 
-        System.out.println(idOfReplacementsInstructors);
+
+
+
+        idOfReplacementsInstructors.stream().distinct().forEach(id-> System.out.println(id));
         return replacementInstructors;
     }
 }
