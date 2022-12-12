@@ -4,10 +4,34 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="98895438-1a49-49fc-b490-69404be78751" name="Changes" comment="Лабороторная работа №1">
-      <change afterPath="$PROJECT_DIR$/labs/lab2/src/main/java/lab2/data/Data.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/labs/lab2/src/main/java/lab2/service/RealiseCourseInstructorService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/labs/lab2/src/main/java/lab2/service/RealiseStudentService.java" afterDir="false" />
+    <list default="true" id="98895438-1a49-49fc-b490-69404be78751" name="Changes" comment="Лабороторная работа №2">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/lab2/src/main/java/lab2/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/lab2/src/main/java/lab2/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/lab2/src/main/java/lab2/data/Data.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/lab2/src/main/java/lab2/data/Data.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/lab2/src/main/java/lab2/model/CourseInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/lab2/src/main/java/lab2/model/CourseInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/lab2/src/main/java/lab2/model/CourseInstance.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/lab2/src/main/java/lab2/model/CourseInstance.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/lab2/src/main/java/lab2/model/Instructor.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/lab2/src/main/java/lab2/model/Instructor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/lab2/src/main/java/lab2/model/Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/lab2/src/main/java/lab2/model/Student.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/lab2/src/main/java/lab2/reader/CourseDataReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/lab2/src/main/java/lab2/reader/CourseDataReader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/lab2/src/main/java/lab2/reader/InstructorDataReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/lab2/src/main/java/lab2/reader/InstructorDataReader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/lab2/src/main/java/lab2/reader/StudentDataReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/lab2/src/main/java/lab2/reader/StudentDataReader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/lab2/src/main/java/lab2/service/CourseInstructorService.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/lab2/src/main/java/lab2/service/CourseInstructorService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/lab2/src/main/java/lab2/service/RealiseCourseInstructorService.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/lab2/src/main/java/lab2/service/RealiseCourseInstructorService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/lab2/src/main/java/lab2/service/RealiseStudentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/lab2/src/main/java/lab2/service/RealiseStudentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/lab2/src/main/java/lab2/service/StudentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/labs/lab2/src/main/java/lab2/service/StudentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/lab2/target/classes/lab2/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/labs/lab2/target/classes/lab2/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/lab2/target/classes/lab2/data/Data.class" beforeDir="false" afterPath="$PROJECT_DIR$/labs/lab2/target/classes/lab2/data/Data.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/lab2/target/classes/lab2/model/CourseInfo.class" beforeDir="false" afterPath="$PROJECT_DIR$/labs/lab2/target/classes/lab2/model/CourseInfo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/lab2/target/classes/lab2/model/CourseInstance.class" beforeDir="false" afterPath="$PROJECT_DIR$/labs/lab2/target/classes/lab2/model/CourseInstance.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/lab2/target/classes/lab2/model/Instructor.class" beforeDir="false" afterPath="$PROJECT_DIR$/labs/lab2/target/classes/lab2/model/Instructor.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/lab2/target/classes/lab2/model/Student.class" beforeDir="false" afterPath="$PROJECT_DIR$/labs/lab2/target/classes/lab2/model/Student.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/lab2/target/classes/lab2/reader/CourseDataReader.class" beforeDir="false" afterPath="$PROJECT_DIR$/labs/lab2/target/classes/lab2/reader/CourseDataReader.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/lab2/target/classes/lab2/reader/InstructorDataReader.class" beforeDir="false" afterPath="$PROJECT_DIR$/labs/lab2/target/classes/lab2/reader/InstructorDataReader.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/lab2/target/classes/lab2/reader/StudentDataReader.class" beforeDir="false" afterPath="$PROJECT_DIR$/labs/lab2/target/classes/lab2/reader/StudentDataReader.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/lab2/target/classes/lab2/service/CourseInstructorService.class" beforeDir="false" afterPath="$PROJECT_DIR$/labs/lab2/target/classes/lab2/service/CourseInstructorService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/lab2/target/classes/lab2/service/RealiseCourseInstructorService.class" beforeDir="false" afterPath="$PROJECT_DIR$/labs/lab2/target/classes/lab2/service/RealiseCourseInstructorService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/lab2/target/classes/lab2/service/RealiseStudentService.class" beforeDir="false" afterPath="$PROJECT_DIR$/labs/lab2/target/classes/lab2/service/RealiseStudentService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labs/lab2/target/classes/lab2/service/StudentService.class" beforeDir="false" afterPath="$PROJECT_DIR$/labs/lab2/target/classes/lab2/service/StudentService.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,13 +49,20 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="lab1" />
+        <entry key="$PROJECT_DIR$" value="lab2" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="useMavenConfig" value="true" />
+      </MavenGeneralSettings>
+    </option>
   </component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
@@ -85,6 +116,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.Main" />
+        <item itemvalue="Application.Main" />
+        <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
   </component>
@@ -104,7 +137,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669467224048</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Лабороторная работа №2">
+      <created>1669909277730</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1669909277730</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -118,7 +158,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="origin/main" />
+                        <option value="lab3" />
                       </list>
                     </value>
                   </entry>
@@ -133,7 +173,8 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="Лабороторная работа №1" />
-    <option name="LAST_COMMIT_MESSAGE" value="Лабороторная работа №1" />
+    <MESSAGE value="Лабороторная работа №2" />
+    <option name="LAST_COMMIT_MESSAGE" value="Лабороторная работа №2" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

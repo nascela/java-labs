@@ -16,22 +16,20 @@ public class Student extends Person {
      * список идентификаторов курсов (CourseInstance.id), пройденных студентом
      */
     private StudentCategory studentCategory;
-    private long[] completedCourses;
 
+
+
+    //private long[] completedCourses;
+    private ArrayList<Long> completedCourses = new ArrayList<Long>();
 
     private ArrayList <Integer> currentCourses = new ArrayList<Integer>();
 
 
 
 
-    public long[] getCompletedCourses() {
-        return completedCourses;
-    }
+    public ArrayList<Long> getCompletedCourses() { return completedCourses;}
 
-    public void setCompletedCourses(long[] completedCourses) {
-        this.completedCourses = completedCourses;
-    }
-
+    public void setCompletedCourses(ArrayList<Long> completedCourses) {this.completedCourses = completedCourses;}
     public StudentCategory getStudentCategory() {
         return studentCategory;
     }

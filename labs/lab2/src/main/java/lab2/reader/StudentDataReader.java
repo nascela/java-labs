@@ -5,6 +5,9 @@ import lab2.model.Student;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 /**
  * Класс для чтения информации о студентах из файлов
@@ -16,16 +19,23 @@ public class StudentDataReader {
     /**
      * @return список студентов-бакалавров
      */
-    public Student[] readBachelorStudentData() throws IOException {
-        return objectMapper.readValue(new File("labs/lab2/src/main/resources/bachelorStudents.json"), Student[].class);
+    public ArrayList<Student> readBachelorStudentData() throws IOException {
+
+        Student [] array = objectMapper.readValue(new File("labs/lab2/src/main/resources/bachelorStudents.json"), Student[].class);
+        ArrayList<Student> res = new ArrayList<Student>();
+        Collections.addAll(res, array);
+        return res;
     }
 
 
     /**
      * @return список студентов-магистров
      */
-    public Student[] readMasterStudentData() throws IOException {
-        return objectMapper.readValue(new File("labs/lab2/src/main/resources/masterStudents.json"), Student[].class);
+    public ArrayList<Student> readMasterStudentData() throws IOException {
+        Student [] array = objectMapper.readValue(new File("labs/lab2/src/main/resources/masterStudents.json"), Student[].class);
+        ArrayList<Student> res = new ArrayList<Student>();
+        Collections.addAll(res, array);
+        return res;
     }
 
 }
